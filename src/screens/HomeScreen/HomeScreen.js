@@ -165,7 +165,9 @@ export default function HomeScreen({ navigation, route }) {
           </ScrollView>
         </SafeAreaView>
       </View>
-    </View>
+       </View>
   );
 }
+//export default HomeScreen
+
 //export default HomeScreen
