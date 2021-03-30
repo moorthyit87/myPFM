@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "105582483097",
+    "firebase_url": "https://reactfirebase-13e81-default-rtdb.firebaseio.com",
+    "project_id": "reactfirebase-13e81",
+    "storage_bucket": "reactfirebase-13e81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105582483097:android:aa85e815b82cc4a52fca08",
+        "android_client_info": {
+          "package_name": "com.firebase.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105582483097-ruqtmqs3h5vk88tle27u5h8cfjdhcqnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3GYsC_7M8WIPPfGvr9uyAq0E4yd4dQ6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105582483097-ruqtmqs3h5vk88tle27u5h8cfjdhcqnn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "105582483097-q5k98b39juijp7m0qe54ddhd4d0enlaq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firebase.test"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
