@@ -117,20 +117,6 @@ export default function HomeScreen({ navigation, route }) {
     //console.log('Selected Item :',item);
   };
 
-  const list = [
-    {
-      name: "Amy Farha",
-      avatar_url:
-        "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-      subtitle: "Vice President",
-    },
-    {
-      name: "Chris Jackson",
-      avatar_url:
-        "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-      subtitle: "Vice Chairman",
-    },
-  ];
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
@@ -165,7 +151,7 @@ export default function HomeScreen({ navigation, route }) {
           </ScrollView>
         </SafeAreaView>
       </View>
-       </View>
+    </View>
   );
 }
 //export default HomeScreen
