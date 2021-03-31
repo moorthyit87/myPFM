@@ -4,7 +4,9 @@ import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
+import DetailsScreen from "./src/screens/DetailsScreen/DetailsScreen";
 import { decode, encode } from "base-64";
+
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -75,9 +77,10 @@ export default function App() {
           </Stack.Screen>
         ) : (
           <>
-                <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Registration" component={RegistrationScreen} />
+            <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
           </>
         )}
       </Stack.Navigator>

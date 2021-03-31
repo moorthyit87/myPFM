@@ -3,6 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");

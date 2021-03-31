@@ -17,9 +17,13 @@ import { firebase, Avatar } from "../../firebase/config";
 import { default as UUID } from "node-uuid";
 import { CustomDialog, useDialog } from "react-st-modal";
 import { Modal, Portal, Button, Provider } from "react-native-paper";
+import BottomTabs from "../FooterMenu";
+
+
+//import FooterMenu from "../FooterMenu";
 
 //const HomeScreen = ({route,navigation})  => {
-export default function HomeScreen({ navigation, route }) {
+const HomeScreen = ({ navigation, route }) => {
   const [entityText, setEntityText] = useState("");
   const [entities, setEntities] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -27,7 +31,10 @@ export default function HomeScreen({ navigation, route }) {
   const userObj = route.params?.user[0];
   const [modalShow, setModalShow] = React.useState(false);
   //alert(JSON.stringify(userObj.id));
-  let userID = userObj.id;
+  let userID = 1;
+  if (userObj != null && userObj != undefined && userObj["id"] != null) {
+    userID = userObj.id;
+  }
   //alert(userID);
   //componentWillMount() {
   let id = UUID.v4();
@@ -78,9 +85,6 @@ export default function HomeScreen({ navigation, route }) {
     }
   };
 
-  handleSelection = (id) => {
-    // alert(id);
-  };
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
       <Text style={[styles.title, textColor]}>{item.title}</Text>
@@ -113,7 +117,8 @@ export default function HomeScreen({ navigation, route }) {
   };
 
   const actionOnRow = (item) => {
-    alert(item);
+    //alert(item);
+    navigation.navigate("DetailsScreen");
     //console.log('Selected Item :',item);
   };
 
@@ -151,9 +156,10 @@ export default function HomeScreen({ navigation, route }) {
           </ScrollView>
         </SafeAreaView>
       </View>
+      {/* <BottomTabs /> */}
     </View>
   );
-}
-//export default HomeScreen
+};
+export default HomeScreen;
 
 //export default HomeScreen
