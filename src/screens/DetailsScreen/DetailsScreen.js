@@ -11,8 +11,9 @@ import {
 } from "react-native";
 
 export default function DetailsScreen({ navigation }) {
+  let userobj = [{ email: "", password: "", id: 1 }];
   const clickListener = (obj) => {
-    navigation.navigate(obj);
+    navigation.navigate(obj, { user: userobj });
   };
   return (
     <View style={styles.container}>

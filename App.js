@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
 import DetailsScreen from "./src/screens/DetailsScreen/DetailsScreen";
+import AddScreen from "./src/screens/AddScreen/AddScreen";
 import { decode, encode } from "base-64";
 
 if (!global.btoa) {
@@ -81,6 +82,7 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Registration" component={RegistrationScreen} />
             <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+            <Stack.Screen name="AddScreen" component={AddScreen} />
           </>
         )}
       </Stack.Navigator>
