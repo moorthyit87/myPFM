@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }) {
             ) {
               userobj.push(newEntities[i]);
               console.log("userobj" + JSON.stringify(userobj));
-              navigation.navigate("Home", { user: userobj });
+              navigation.navigate("Home2", { user: userobj });
             } else {
               alert("login failed");
             }

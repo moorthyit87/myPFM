@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
 import DetailsScreen from "./src/screens/DetailsScreen/DetailsScreen";
+import Home2 from "./src/screens/HomeScreen/Home2";
+import Home1 from "./src/screens/HomeScreen/Home1";
 import AddScreen from "./src/screens/AddScreen/AddScreen";
 import { decode, encode } from "base-64";
 
@@ -82,6 +84,8 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Registration" component={RegistrationScreen} />
             <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+            <Stack.Screen name="Home2" component={Home2} />
+            <Stack.Screen name="Home1" component={Home1} />
             <Stack.Screen name="AddScreen" component={AddScreen} />
           </>
         )}

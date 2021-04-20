@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-export default function DetailsScreen({ navigation }) {
+export default function DetailsScreen({ navigation, route }) {
   let userobj = [{ email: "", password: "", id: 1 }];
   const clickListener = (obj) => {
     navigation.navigate(obj, { user: userobj });

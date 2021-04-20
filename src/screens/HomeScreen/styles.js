@@ -86,7 +86,7 @@ export default StyleSheet.create({
   button_delete: {
     height: 47,
     borderRadius: 5,
-    backgroundColor: "#3498db",
+    backgroundColor: "#FF4500",
     width: 100,
     alignItems: "center",
     justifyContent: "center",
@@ -97,11 +97,61 @@ export default StyleSheet.create({
   buttondel: {
     height: 30,
     borderRadius: 5,
-    backgroundColor: "#3498db",
+    backgroundColor: "#20B2AA",
     width: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 15,
     //paddingTop: 30,
+  },
+  tasks: {
+    flex: 1,
+  },
+  cardContent: {
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  image: {
+    width: 25,
+    height: 25,
+  },
+
+  card: {
+    shadowColor: "#00000021",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+
+    marginVertical: 10,
+    marginHorizontal: 20,
+    backgroundColor: "white",
+    flexBasis: "66%",
+    padding: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    borderLeftWidth: 6,
+    borderRadius: 5,
+  },
+
+  description: {
+    fontSize: 14,
+    flex: 1,
+    color: "#008080",
+    fontWeight: "bold",
+  },
+  date: {
+    fontSize: 14,
+    flex: 1,
+    color: "#696969",
+    marginTop: 5,
+  },
+  content: {
+    fontSize: 14,
+    color: "#696969",
+    marginTop: 5,
   },
 });
