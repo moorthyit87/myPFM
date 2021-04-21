@@ -8,7 +8,7 @@ const usrRef = firebase.firestore().collection("users");
 const entityRef = firebase.firestore().collection("entities");
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from "react-native-vector-icons/Feather";
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 export default function AddScreen({ navigation }) {
   const [prodName, setProdName] = useState("");
   const [prodDesc, setProdDesc] = useState("");

@@ -9,13 +9,29 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
+import "react-native-gesture-handler";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./HomeScreen";
+import DetailsScreen from ".././DetailsScreen/DetailsScreen";
+import ProfileScreen from ".././DetailsScreen/DetailsScreen";
+import SettingsScreen from ".././DetailsScreen/DetailsScreen";
+import AddScreen from ".././AddScreen/AddScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createAppContainer } from "react-navigation"; 
 
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 export default class Home2 extends Component {
   constructor(props) {
     super(props);
     const navigationObj = props.navigation;
     const state = props.route.params;
-    console.log("PROPS " + state.user);
+    //console.log("PROPS " + state.user);
     this.state = {
       data: [
         {
@@ -98,45 +114,176 @@ export default class Home2 extends Component {
       user: this.props.route.params.user,
     });
   }
+  AddStack() {
+    return (
+      <Stack.Navigator
+        initialRouteName="Add"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#42f44b" },
+          headerTintColor: "#fff",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      >
+        <Stack.Screen
+          name="Add"
+          component={AddScreen}
+          options={{ title: "Home Page" }}
+        />
+      </Stack.Navigator>
+    );
+  }
 
+  HomeStack() {
+    return (
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#42f44b" },
+          headerTintColor: "#fff",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "Home Page" }}
+        />
+        <Stack.Screen
+          name="Add"
+          component={AddScreen}
+          options={{ title: "Home Page" }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{ title: "Details Page" }}
+        />
+      </Stack.Navigator>
+    );
+  }
+
+  SettingsStack() {
+    return (
+      <Stack.Navigator
+        initialRouteName="Settings"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#42f44b" },
+          headerTintColor: "#fff",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      >
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ title: "Setting Page" }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{ title: "Details Page" }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ title: "Profile Page" }}
+        />
+      </Stack.Navigator>
+    );
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList
-          style={styles.list}
-          contentContainerStyle={styles.listContainer}
-          data={this.state.data}
-          horizontal={false}
-          numColumns={2}
-          keyExtractor={(item) => {
-            return item.id;
-          }}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={[styles.card, { backgroundColor: item.color }]}
-                onPress={() => {
-                  this.clickEventListener(item);
-                }}
-              >
-                <View style={styles.cardHeader}>
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Image
-                    style={styles.icon}
-                    source={{
-                      uri: "https://img.icons8.com/ios/40/000000/settings.png",
-                    }}
-                  />
-                </View>
-                <Image style={styles.cardImage} source={{ uri: item.image }} />
-                <View style={styles.cardFooter}>
-                  <Text style={styles.subTitle}>{item.members} members</Text>
-                </View>
-              </TouchableOpacity>
-            );
+      // <View style={styles.container}>
+      //   <FlatList
+      //     style={styles.list}
+      //     contentContainerStyle={styles.listContainer}
+      //     data={this.state.data}
+      //     horizontal={false}
+      //     numColumns={2}
+      //     keyExtractor={(item) => {
+      //       return item.id;
+      //     }}
+      //     renderItem={({ item }) => {
+      //       return (
+      //         <TouchableOpacity
+      //           style={[styles.card, { backgroundColor: item.color }]}
+      //           onPress={() => {
+      //             this.clickEventListener(item);
+      //           }}
+      //         >
+      //           <View style={styles.cardHeader}>
+      //             <Text style={styles.title}>{item.title}</Text>
+      //             <Image
+      //               style={styles.icon}
+      //               source={{
+      //                 uri: "https://img.icons8.com/ios/40/000000/settings.png",
+      //               }}
+      //             />
+      //           </View>
+      //           <Image style={styles.cardImage} source={{ uri: item.image }} />
+      //           <View style={styles.cardFooter}>
+      //             <Text style={styles.subTitle}>{item.members} members</Text>
+      //           </View>
+      //         </TouchableOpacity>
+      //       );
+      //     }}
+      //   />
+      // </View>
+      // <NavigationContainer>
+      //   <Drawer.Navigator initialRouteName="Home">
+      //     <Drawer.Screen name="HomeStack" component={this.HomeStack} />
+      //     <Drawer.Screen name="SettingsStack" component={this.SettingsStack} />
+      //   </Drawer.Navigator>
+      // </NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{
+          style: {
+            backgroundColor: "black",
+            paddingBottom: 10,
+            paddingVertical: 10,
+            height: 60,
+          },
+          activeTintColor: "#42f44b",
+          backgroundColor: "black",
+        }}
+      >
+        <Tab.Screen
+          name="HomeStack"
+          component={this.HomeStack}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size }) => (
+              // <Icon name="menu" size={20} color="black" />
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
           }}
         />
-      </View>
+        <Tab.Screen
+          name="AddStack"
+          component={this.AddStack}
+          options={{
+            tabBarLabel: "ADD",
+            tabBarIcon: ({ color, size }) => (
+              // <Icon name="circle" size={size} color={ color} />
+              <MaterialCommunityIcons
+                name="account-plus"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="SettingsStack"
+          component={this.SettingsStack}
+          options={{
+            tabBarLabel: "Settings",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="buffer" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     );
   }
 }

@@ -9,6 +9,7 @@ import Home2 from "./src/screens/HomeScreen/Home2";
 import Home1 from "./src/screens/HomeScreen/Home1";
 import AddScreen from "./src/screens/AddScreen/AddScreen";
 import { decode, encode } from "base-64";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -44,52 +45,37 @@ export default function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //     usersRef
-  //         .where("email", "==", "test@gmail.com")
-  //         .orderBy('id')
-  //         .onSnapshot(
-  //             querySnapshot => {
-  //                 const userData = []
-  //                 querySnapshot.forEach(doc => {
-  //                     const entity = doc.data()
-  //                     entity.id = doc.Id
-  //                     userData.push(entity);
-  //                 });
-  //                 //console.log("newEntities" + newEntities);
-  //                 setLoading(false)
-  //                 setUser(userData)
-  //             },
-  //             error => {
-  //                 console.log(error)
-  //             }
-  //         )
-  // }, [])
-
-  if (loading) {
-    return <></>;
-  }
-
+  const Drawer = createDrawerNavigator();
   return (
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     {user ? (
+    //       <Stack.Screen name="Login">
+    //         {/* {props => <HomeScreen {...props} extraData={user} />} */}
+    //         <Stack.Screen name="Login" component={LoginScreen} />
+    //       </Stack.Screen>
+    //     ) : (
+    //       <>
+    //         <Stack.Screen name="Login" component={LoginScreen} />
+    //         <Stack.Screen name="Home" component={HomeScreen} />
+    //         <Stack.Screen name="Registration" component={RegistrationScreen} />
+    //         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+    //         <Stack.Screen
+    //           name="Home2"
+    //           component={Home2}
+    //           options={{ headerShown:  false }}
+    //         />
+    //         <Stack.Screen name="Home1" component={Home1} />
+    //         <Stack.Screen name="AddScreen" component={AddScreen} />
+    //       </>
+    //     )}
+    //   </Stack.Navigator>
+    // </NavigationContainer>
     <NavigationContainer>
-      <Stack.Navigator>
-        {user ? (
-          <Stack.Screen name="Login">
-            {/* {props => <HomeScreen {...props} extraData={user} />} */}
-            <Stack.Screen name="Login" component={LoginScreen} />
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Registration" component={RegistrationScreen} />
-            <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-            <Stack.Screen name="Home2" component={Home2} />
-            <Stack.Screen name="Home1" component={Home1} />
-            <Stack.Screen name="AddScreen" component={AddScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="Home2">
+        <Drawer.Screen name="Home2" component={Home2} />
+        <Drawer.Screen name="DetailsScreen" component={DetailsScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
