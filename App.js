@@ -10,7 +10,7 @@ import Home1 from "./src/screens/HomeScreen/Home1";
 import AddScreen from "./src/screens/AddScreen/AddScreen";
 import { decode, encode } from "base-64";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
+import ActionBarImage from "./src/screens/ActionBarImage";
 if (!global.btoa) {
   global.btoa = encode;
 }

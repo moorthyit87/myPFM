@@ -16,12 +16,14 @@ import HomeScreen from "./HomeScreen";
 import DetailsScreen from ".././DetailsScreen/DetailsScreen";
 import ProfileScreen from ".././DetailsScreen/DetailsScreen";
 import SettingsScreen from ".././DetailsScreen/DetailsScreen";
+//import ScanScreen from ".././DetailsScreen/scan";
 import AddScreen from ".././AddScreen/AddScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createAppContainer } from "react-navigation"; 
+import { createAppContainer } from "react-navigation";
+import ActionBarImage from ".././ActionBarImage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -122,12 +124,15 @@ export default class Home2 extends Component {
           headerStyle: { backgroundColor: "#42f44b" },
           headerTintColor: "#fff",
           headerTitleStyle: { fontWeight: "bold" },
+          headerShown: false,
         }}
       >
         <Stack.Screen
           name="Add"
           component={AddScreen}
-          options={{ title: "Home Page" }}
+          options={{
+            title: "Add Page",
+          }}
         />
       </Stack.Navigator>
     );
@@ -141,17 +146,35 @@ export default class Home2 extends Component {
           headerStyle: { backgroundColor: "#42f44b" },
           headerTintColor: "#fff",
           headerTitleStyle: { fontWeight: "bold" },
+          //headerLeft: () => <ActionBarImage />,
+          headerShown: false,
         }}
       >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Home Page" }}
+          options={{
+            title: "Home Page",
+            headerShown: false,
+          }}
         />
+        {/* <Stack.Screen
+          name="Scan"
+          initialParams={{ params: "Scan" }}
+          component={ScanScreen}
+          options={{
+            title: "Scan Page",
+            headerShown: false,
+          }}
+        /> */}
         <Stack.Screen
           name="Add"
+          initialParams={{ params: "Add" }}
           component={AddScreen}
-          options={{ title: "Home Page" }}
+          options={{
+            title: "Add Page",
+            headerShown: false,
+          }}
         />
         <Stack.Screen
           name="Details"
@@ -262,6 +285,7 @@ export default class Home2 extends Component {
           name="AddStack"
           component={this.AddStack}
           options={{
+            headerShown: false,
             tabBarLabel: "ADD",
             tabBarIcon: ({ color, size }) => (
               // <Icon name="circle" size={size} color={ color} />

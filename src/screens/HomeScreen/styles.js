@@ -17,6 +17,15 @@ export default StyleSheet.create({
     //marginTop: 0,
     //padding: 0,
   },
+  header: {
+    flexDirection: "row",
+    width: "100%",
+    height: 60,
+    backgroundColor: "#008080",
+    justifyContent: "space-between",
+    //alignContent: "space-between",
+    alignItems: "center",
+  },
   formContainer: {
     flexDirection: "row",
     height: 5,

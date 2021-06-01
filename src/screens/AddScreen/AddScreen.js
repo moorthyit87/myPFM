@@ -9,17 +9,40 @@ const entityRef = firebase.firestore().collection("entities");
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-export default function AddScreen({ navigation }) {
-  const [prodName, setProdName] = useState("");
-  const [prodDesc, setProdDesc] = useState("");
-  const [totalCost, settotalCost] = useState("");
-  const [totalTerms, settotalTerms] = useState("");
-  const [totalYear, settotalYear] = useState("");
-  const [termsPerYear, settermsPerYear] = useState("");
-  const [completedTerms, setcompletedTerms] = useState("");
-  const [spendAmount, setspendAmount] = useState("");
-  const [lastspendAmount, setlastspendAmount] = useState("");
-  const [hasTaken, setHasTaken] = useState("");
+
+export default function AddScreen({ navigation, route }) {
+  const navData = route.params; //route.params?.user[0];
+  let objData = null;
+  let navtype = "_Add";
+  if (navData != null && navData["data"] != null) {
+    navtype = "_Edit";
+    objData = navData["data"];
+    //alert(JSON.stringify(navData["data"]));
+  }
+  //alert(navtype);
+  const [prodName, setProdName] =
+    navtype == "_Add" ? useState("") : useState(objData["prodName"]);
+  const [prodDesc, setProdDesc] =
+    navtype == "_Add" ? useState("") : useState(objData["prodDesc"]);
+  const [totalCost, settotalCost] =
+    navtype == "_Add" ? useState("") : useState(objData["totalCost"]);
+  const [totalTerms, settotalTerms] =
+    navtype == "_Add" ? useState("") : useState(objData["totalTerms"]);
+  const [totalYear, settotalYear] =
+    navtype == "_Add" ? useState("") : useState(objData["totalYear"]);
+  const [termsPerYear, settermsPerYear] =
+    navtype == "_Add" ? useState("") : useState(objData["termsPerYear"]);
+  const [completedTerms, setcompletedTerms] =
+    navtype == "_Add" ? useState("") : useState(objData["completedTerms"]);
+  const [spendAmount, setspendAmount] =
+    navtype == "_Add" ? useState("") : useState(objData["spendAmount"]);
+  const [lastspendAmount, setlastspendAmount] =
+    navtype == "_Add" ? useState("") : useState(objData["lastspendAmount"]);
+  const [hasTaken, setHasTaken] =
+    navtype == "_Add" ? useState("") : useState(objData["hasTaken"]);
+
+  //const [prodName1, setProdName1] = useState(objData["prodName"]);
+
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
@@ -28,38 +51,91 @@ export default function AddScreen({ navigation }) {
     let id = UUID.v4();
     //alert(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    const data = {
-      prodName: prodName,
-      prodDesc: prodDesc,
-      totalCost: totalCost,
-      totalTerms: totalTerms,
-      totalYear: totalYear,
-      termsPerYear: termsPerYear,
-      completedTerms: completedTerms,
-      spendAmount: spendAmount,
-      hasTaken: hasTaken,
-      authorID: 1,
-      createdAt: timestamp,
-      id: id,
-    };
-    entityRef
-      .add(data)
-      .then((_doc) => {
-        //setEntityText("");
-        alert("Success");
-        //Keyboard.dismiss();
-      })
-      .catch((error) => {
-        alert(error);
+    if (navtype == "_Add") {
+      const data = {
+        prodName: prodName,
+        prodDesc: prodDesc,
+        totalCost: totalCost,
+        totalTerms: totalTerms,
+        totalYear: totalYear,
+        termsPerYear: termsPerYear,
+        completedTerms: completedTerms,
+        spendAmount: spendAmount,
+        hasTaken: hasTaken,
+        authorID: 1,
+        createdAt: timestamp,
+        id: id,
+      };
+      entityRef
+        .add(data)
+        .then((_doc) => {
+          //setEntityText("");
+          alert("Success");
+          setProdName('');
+          setProdDesc('');
+          settotalCost('');
+          settotalTerms('');
+          settotalYear('');
+          settermsPerYear('');
+          setcompletedTerms('');
+          setspendAmount('');
+          setlastspendAmount('');
+          setHasTaken();
+
+
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      entityRef.doc(objData.docId).update({
+        prodName: objData.prodName,
+        prodDesc: objData.prodDesc,
+        totalCost: objData.totalCost,
+        totalTerms: objData.totalTerms,
+        totalYear: objData.totalYear,
+        termsPerYear: objData.termsPerYear,
+        completedTerms: objData.completedTerms,
+        spendAmount: objData.spendAmount,
+        hasTaken: objData.hasTaken,
+        authorID: 1,
       });
+      navigation.navigate("Home2");
+    }
   };
 
   const actionOnRow = (item) => {
     alert(item);
   };
-
+  const clickEventListener = () => {
+    //alert(1);
+    navigation.openDrawer();
+  };
   return (
     <View style={styles.container}>
+      <View
+        style={styles.header}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            clickEventListener();
+          }}
+        >
+          <MaterialCommunityIcons
+            name="menu"
+            color="white"
+            size={30}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40 / 2,
+              marginLeft: 15,
+              alignItems: "center",
+              marginTop: 12,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
       <KeyboardAwareScrollView
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
@@ -73,7 +149,7 @@ export default function AddScreen({ navigation }) {
           placeholder="Enter the Product"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setProdName(text)}
-          value={prodName}
+          value={navtype == "_Add" ? prodName : prodName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -82,7 +158,7 @@ export default function AddScreen({ navigation }) {
           placeholder="Product Description"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setProdDesc(text)}
-          value={prodDesc}
+          value={navtype == "_Add" ? prodDesc : prodDesc}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -92,7 +168,7 @@ export default function AddScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Total Cost"
           onChangeText={(text) => settotalCost(text)}
-          value={totalCost}
+          value={navtype == "_Add" ? totalCost : totalCost}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -102,7 +178,7 @@ export default function AddScreen({ navigation }) {
           placeholder="Total Members"
           keyboardType="numeric"
           onChangeText={(text) => settotalTerms(text)}
-          value={totalTerms}
+          value={navtype == "_Add" ? totalTerms : totalTerms}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -112,7 +188,7 @@ export default function AddScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Total Year"
           onChangeText={(text) => settotalYear(text)}
-          value={totalYear}
+          value={navtype == "_Add" ? totalYear : totalYear}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -122,7 +198,7 @@ export default function AddScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Terms per Year"
           onChangeText={(text) => settermsPerYear(text)}
-          value={termsPerYear}
+          value={navtype == "_Add" ? termsPerYear : termsPerYear}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -132,7 +208,7 @@ export default function AddScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Completed Terms"
           onChangeText={(text) => setcompletedTerms(text)}
-          value={completedTerms}
+          value={navtype == "_Add" ? completedTerms : completedTerms}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -142,7 +218,7 @@ export default function AddScreen({ navigation }) {
           keyboardType="numeric"
           placeholder="Amout Spend till.."
           onChangeText={(text) => setspendAmount(text)}
-          value={spendAmount}
+          value={navtype == "_Add" ? spendAmount : spendAmount}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -151,7 +227,7 @@ export default function AddScreen({ navigation }) {
           placeholderTextColor="#aaaaaa"
           placeholder="Last Spend till.."
           onChangeText={(text) => setlastspendAmount(text)}
-          value={lastspendAmount}
+          value={navtype == "_Add" ? lastspendAmount : lastspendAmount}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -160,7 +236,7 @@ export default function AddScreen({ navigation }) {
           placeholderTextColor="#aaaaaa"
           placeholder="Has Taken"
           onChangeText={(text) => setHasTaken(text)}
-          value={hasTaken}
+          value={navtype == "_Add" ? hasTaken : hasTaken}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />

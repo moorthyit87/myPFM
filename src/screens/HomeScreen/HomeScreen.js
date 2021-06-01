@@ -22,11 +22,14 @@ import { CustomDialog, useDialog } from "react-st-modal";
 import { Modal, Portal, Button, Provider } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BottomTabs from "../FooterMenu";
-
+import { green100 } from "react-native-paper/lib/typescript/styles/colors";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 //import FooterMenu from "../FooterMenu";
 
-const HomeScreen = ({ navigation, route }) => {
+const HomeScreen = ({ navigation, route }) =>
+{
+  const [menuicon, setMenuIcon] = useState("menu");
   const [entityText, setEntityText] = useState("");
   const [entities, setEntities] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -132,13 +135,14 @@ const HomeScreen = ({ navigation, route }) => {
   };
   const updateData = (item) => {
     entityRef.doc(item.docId).update({
-      text:
+      prodName:
         +"zkoder new Tut#1,zkoder new Tut#1,zkoder new Tut#1,zkoder new Tut#1,zkoder new Tut#1" +
         "zkoder new Tut#1, zkoder new Tut#1, zkoder new Tut#1, moorthy",
     });
   };
   const navigateToAddScreen = () => {
-    navigation.navigate("Add", { params: "Jane" });
+    //navigation.openDrawer();
+    navigation.navigate("Scan", { params: "Sacn" });
   };
   const createTwoButtonAlert = (item) =>
     Alert.alert("Delete", "Are you sure want to delete?", [
@@ -149,7 +153,7 @@ const HomeScreen = ({ navigation, route }) => {
       },
       { text: "OK", onPress: () => deleteRecords(item) },
     ]);
-  
+
   const __getDescriptionStyle = (item) => {
     if (item % 2 == 1) {
       return;
@@ -252,27 +256,77 @@ const HomeScreen = ({ navigation, route }) => {
 
   const actionOnRow = (item) => {
     //alert(item);
-    navigation.navigate("DetailsScreen");
+    navigation.navigate("Add", { params: "edit", data: item });
     //console.log('Selected Item :',item);
   };
-
+  const clickEventListener = () => {
+    //alert(1);
+    navigation.openDrawer();
+  };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.formContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Add new entity"
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => setEntityText(text)}
-            value={entityText}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
+      <View
+        style={styles.header}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            clickEventListener();
+          }}
+        >
+          <MaterialCommunityIcons
+            name={menuicon }
+            color="white"
+            size={30}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40 / 2,
+              marginLeft: 15,
+              alignItems: "center",
+              //marginTop: 12,
+            }}
           />
-          <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableOpacity>
-        </View> */}
-      <View style={{ flex: 6, backgroundColor: "#eeeeee" }}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigateToAddScreen();
+          }}
+        >
+          <MaterialCommunityIcons
+            name="account-plus"
+            color="white"
+            size={30}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40 / 2,
+              //marginLeft: 135,
+              alignItems: "center",
+              //marginTop: 12,
+            }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            createTwoButtonAlert();
+          }}
+        >
+          <MaterialCommunityIcons
+            name="delete"
+            color="white"
+            size={30}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40 / 2,
+              //marginLeft: 145,
+              alignItems: "center",
+              //marginTop: 12,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex:6, backgroundColor: "#eeeeee" }}>
         <SafeAreaView style={styles.listContainer}>
           {/* <ScrollView style={styles.scrollView}> */}
           {entities && (
@@ -291,14 +345,14 @@ const HomeScreen = ({ navigation, route }) => {
           {/* </ScrollView> */}
         </SafeAreaView>
       </View>
-      <View
+      {/* <View
         style={{
           flex: 1,
           flexDirection: "row",
           alignContent: "space-between",
           alignItems: "center",
           backgroundColor: "#dedede",
-          height:  30,
+          height: 30,
         }}
       >
         <TouchableOpacity
@@ -317,7 +371,7 @@ const HomeScreen = ({ navigation, route }) => {
         >
           <Text style={styles.buttonText}>Delete All</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       {/* <BottomTabs /> */}
     </View>
   );

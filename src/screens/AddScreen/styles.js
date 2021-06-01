@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-        alignItems: "center",
-        paddingBottom:20
+    alignItems: "center",
+    paddingBottom: 20,
+    flexDirection: "column",
   },
   title: {},
   logo: {
@@ -13,6 +14,12 @@ export default StyleSheet.create({
     width: 40,
     alignSelf: "center",
     margin: 30,
+  },
+  header: {
+    flexDirection: "row",
+    width: "100%",
+    height: 60,
+    backgroundColor: "#008080",
   },
   input: {
     height: 48,
